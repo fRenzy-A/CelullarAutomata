@@ -110,7 +110,7 @@ public class MapGenerator : MonoBehaviour
 
         return wallCount;
     }
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         if (map != null)
         {
@@ -125,5 +125,5 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-    }
+    }*/
 }
