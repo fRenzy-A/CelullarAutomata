@@ -19,15 +19,15 @@ public class MeshGenerator : MonoBehaviour
         triangleDictionary.Clear();
         outlines.Clear();
         checkedVertices.Clear();
+        squareGrid = new SquareGrid(map, squareSize);
 
         vertices = new List<Vector3>();
         triangles = new List<int>();
-        squareGrid = new SquareGrid(map, squareSize);
-        for (int i = 0; i < squareGrid.squares.GetLength(0); i++)
+        for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
         {
-            for (int j = 0; j < squareGrid.squares.GetLength(1); j++)
+            for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
             {
-                TriangulateSquare(squareGrid.squares[i, j]);
+                TriangulateSquare(squareGrid.squares[x, y]);
             }
         }
 

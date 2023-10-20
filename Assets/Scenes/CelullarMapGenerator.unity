@@ -155,11 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4535258534c6643b60ff8aa51e8784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 150
-  height: 150
+  width: 80
+  height: 60
   seed: 
   useRandomSeed: 1
-  randomFillPercent: 60
+  randomFillPercent: 55
 --- !u!4 &16202342
 Transform:
   m_ObjectHideFlags: 0

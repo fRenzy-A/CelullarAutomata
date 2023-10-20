@@ -36,7 +36,7 @@ public class MapGenerator : MonoBehaviour
         map = new int[width, height];
         RandomFillMap();
 
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < 5; i++)
         {
             SmoothMap();
         }
@@ -60,7 +60,7 @@ public class MapGenerator : MonoBehaviour
         }
 
         MeshGenerator meshGen = GetComponent<MeshGenerator>();
-        meshGen.GenerateMesh(map, 1);
+        meshGen.GenerateMesh(borderedMap, 1);
     }
 
     void ProcessMap()
@@ -198,6 +198,92 @@ public class MapGenerator : MonoBehaviour
     {
         Room.ConnectRooms(roomA, roomB);
         Debug.DrawLine(CoordToWorldPoint(tileA), CoordToWorldPoint(tileB), color: Color.green,100);
+
+        List<Coord> line = GetLine (tileA, tileB);
+        foreach (Coord c in line)
+        {
+            DrawCircle(c, 2);
+        }
+    }
+
+    void DrawCircle(Coord c, int r)
+    {
+        for (int x = -r; x <= r; x++)
+        {
+            for (int y = -r; y <= r; y++)
+            {
+                if(x*x + y*y <= r * r)
+                {
+                    int drawX = c.tileX + x;
+                    int drawY = c.tileY + y;
+                    if (IsInMapRange(drawX, drawY))
+                    {
+                        map[drawX, drawY] = 0;
+                    }
+                }
+            }
+        }
+    }
+    
+        
+    
+
+    List<Coord> GetLine(Coord from, Coord to)
+    {
+        List<Coord> line = new List<Coord>();
+
+        int x = from.tileX;
+        int y = from.tileY;
+
+        int dx = to.tileX - from.tileX;
+        int dy = to.tileY - from.tileY;
+
+        bool inverted = false;
+        int step = Math.Sign(dx);
+        int gradientStep = Math.Sign(dy);
+
+        int longest = Mathf.Abs (dx);
+        int shortest = Mathf.Abs (dy);
+
+        if (longest < shortest)
+        {
+            inverted = true;
+            longest = Mathf.Abs (dy);
+            shortest = Mathf.Abs (dx);
+
+            step = Math.Sign(dy);
+            gradientStep = Math.Sign(dx);
+        }
+        int gradientAccumulation = longest / 2;
+        for (int i = 0; i < longest; i++)
+        {
+            line.Add(new Coord(x, y));
+
+            if (inverted)
+            {
+                y += step;
+            }
+            else
+            {
+                x += step;
+            }
+
+            gradientAccumulation += shortest;
+            if (gradientAccumulation >= longest)
+            {
+                if (inverted)
+                {
+                    x += gradientStep;
+                }
+                else
+                {
+                    y += gradientStep;
+                }
+                gradientAccumulation -= longest;
+            }
+
+        }
+        return line;
     }
     Vector3 CoordToWorldPoint (Coord tile)
     {
