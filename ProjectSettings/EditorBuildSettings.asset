@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CelullarMapGenerator.unity
+    guid: d8cbc5083272948468e864953e4ecbe7
+  - enabled: 1
+    path: Assets/Scenes/CelullarMapGenerator2D.unity
+    guid: 119d73044a6ee224c8917fe0f1fadf99
   m_configObjects: {}
